@@ -1,0 +1,45 @@
+{
+  "name": "Mitsubishi Heavy 152-bit (ZMS)",
+  "manufacturer": "Mitsubishi Heavy Industries",
+  "models": "SRK..ZM/ZMP/ZMX wall units (remote RKX502A001 family)",
+  "tested": false,
+  "notes": "Untested here. Layout from IRremoteESP8266 ir_MitsubishiHeavy.h (Mitsubishi152Protocol).",
+  "carrier_hz": 38000,
+  "bit_order": "lsb",
+  "timing": {
+    "header_mark": 3140,
+    "header_space": 1630,
+    "bit_mark": 370,
+    "one_space": 420,
+    "zero_space": 1220
+  },
+  "template": "AD 51 3C E5 1A 00 00 00 00 00 00 00 00 00 00 00 00 80 00",
+  "signature_length": 5,
+  "checksum": { "type": "inverted_pairs", "start": 3 },
+  "fields": {
+    "power": { "bits": [[5, 3, 1]], "values": { "off": 0, "on": 1 } },
+    "mode": {
+      "bits": [[5, 0, 3]],
+      "values": { "auto": 0, "cool": 1, "dry": 2, "fan_only": 3, "heat": 4 }
+    },
+    "temperature": { "bits": [[7, 0, 4]], "offset": 17, "min": 17, "max": 31, "step": 1 },
+    "fan": {
+      "bits": [[9, 0, 4]],
+      "values": { "auto": 0, "low": 1, "medium": 2, "high": 3, "max": 4, "econo": 6, "powerful": 8 }
+    },
+    "swing": {
+      "bits": [[11, 5, 3]],
+      "values": { "on": 0, "off": 6, "highest": 1, "high": 2, "middle": 3, "low": 4, "lowest": 5 },
+      "optional": true
+    },
+    "swing_horizontal": {
+      "bits": [[13, 0, 4]],
+      "values": {
+        "on": 0, "off": 8, "left_max": 1, "left": 2, "middle": 3, "right": 4,
+        "right_max": 5, "right_left": 6, "left_right": 7
+      },
+      "optional": true
+    }
+  },
+  "defaults": { "fan": "auto", "swing": "off", "swing_horizontal": "off" }
+}

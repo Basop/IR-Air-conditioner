@@ -1,0 +1,46 @@
+{
+  "name": "Mitsubishi Heavy 88-bit (ZJS)",
+  "manufacturer": "Mitsubishi Heavy Industries",
+  "models": "SRK25ZSP-W1 and other SRK..ZS/ZSP wall units (remote RLA502A700 family)",
+  "tested": true,
+  "notes": "Verified against an SRK25ZSP-W1 remote capture 2026-09-29. Layout from IRremoteESP8266 ir_MitsubishiHeavy.h (Mitsubishi88Protocol).",
+  "carrier_hz": 38000,
+  "bit_order": "lsb",
+  "timing": {
+    "header_mark": 3140,
+    "header_space": 1630,
+    "bit_mark": 370,
+    "one_space": 420,
+    "zero_space": 1220
+  },
+  "template": "AD 51 3C D9 26 00 00 00 00 00 00",
+  "signature_length": 5,
+  "checksum": { "type": "inverted_pairs", "start": 3 },
+  "fields": {
+    "power": { "bits": [[9, 3, 1]], "values": { "off": 0, "on": 1 } },
+    "mode": {
+      "bits": [[9, 0, 3]],
+      "values": { "auto": 0, "cool": 1, "dry": 2, "fan_only": 3, "heat": 4 }
+    },
+    "temperature": { "bits": [[9, 4, 4]], "offset": 17, "min": 18, "max": 30, "step": 1 },
+    "fan": {
+      "bits": [[7, 5, 3]],
+      "values": { "auto": 0, "low": 2, "medium": 3, "high": 4, "powerful": 6, "econo": 7 }
+    },
+    "swing": {
+      "bits": [[5, 1, 1], [7, 3, 2]],
+      "values": { "on": 4, "off": 0, "highest": 6, "high": 1, "middle": 3, "low": 5, "lowest": 7 },
+      "optional": true
+    },
+    "swing_horizontal": {
+      "bits": [[5, 2, 2], [5, 6, 2]],
+      "values": {
+        "on": 8, "off": 0, "left_max": 1, "left": 5, "middle": 9, "right": 13,
+        "right_max": 2, "right_left": 10, "left_right": 6, "3d": 14
+      },
+      "optional": true,
+      "default_enabled": false
+    }
+  },
+  "defaults": { "fan": "auto", "swing": "off", "swing_horizontal": "off" }
+}

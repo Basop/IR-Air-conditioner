@@ -1,0 +1,77 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add an IR air conditioner",
+        "description": "One entry per indoor unit. Pick the code map that matches the unit's remote.",
+        "data": { "name": "Name", "code_map": "Remote code map" }
+      },
+      "devices": {
+        "title": "IR devices",
+        "description": "Code map: {code_map}.\nThe receiver is optional: when set, presses on the unit's own remote update Home Assistant.",
+        "data": {
+          "emitter": "IR transmitter",
+          "receiver": "IR receiver (remote feedback)",
+          "temperature_sensor": "Room temperature sensor",
+          "humidity_sensor": "Room humidity sensor",
+          "features": "Features this unit has"
+        }
+      }
+    },
+    "abort": {
+      "no_code_maps": "No IR code maps could be loaded. Check the log for errors."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "IR devices",
+        "data": {
+          "emitter": "IR transmitter",
+          "receiver": "IR receiver (remote feedback)",
+          "temperature_sensor": "Room temperature sensor",
+          "humidity_sensor": "Room humidity sensor",
+          "features": "Features this unit has"
+        }
+      }
+    },
+    "abort": {
+      "code_map_missing": "The code map this unit uses can no longer be found."
+    }
+  },
+  "selector": {
+    "features": {
+      "options": {
+        "swing": "Vertical vane control",
+        "swing_horizontal": "Horizontal louvre control"
+      }
+    }
+  },
+  "entity": {
+    "climate": {
+      "ir_ac": {
+        "state_attributes": {
+          "fan_mode": {
+            "state": {
+              "auto": "Auto", "low": "Low", "medium": "Medium", "high": "High",
+              "max": "Max", "powerful": "Hi Power", "econo": "Economy"
+            }
+          },
+          "swing_mode": {
+            "state": {
+              "on": "Swing", "off": "Stop", "highest": "Highest", "high": "High",
+              "middle": "Middle", "low": "Low", "lowest": "Lowest"
+            }
+          },
+          "swing_horizontal_mode": {
+            "state": {
+              "on": "Swing", "off": "Stop", "left_max": "Far left", "left": "Left",
+              "middle": "Middle", "right": "Right", "right_max": "Far right",
+              "right_left": "Outward", "left_right": "Inward", "3d": "3D auto"
+            }
+          }
+        }
+      }
+    }
+  }
+}

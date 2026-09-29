@@ -1,0 +1,13 @@
+{
+  "domain": "ir_ac",
+  "name": "IR Air Conditioner",
+  "codeowners": ["@Basop"],
+  "config_flow": true,
+  "dependencies": ["infrared"],
+  "documentation": "https://github.com/Basop/IR-Air-conditioner",
+  "integration_type": "device",
+  "iot_class": "assumed_state",
+  "issue_tracker": "https://github.com/Basop/IR-Air-conditioner/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
