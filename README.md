@@ -12,6 +12,8 @@ own proxy.
 - Optional IR receiver: presses on the unit's own remote are decoded and the entity
   follows them (fires an `ir_ac_remote_command` event too)
 - Optional room temperature/humidity sensors shown as the current temperature/humidity
+- Without a room sensor, the set temperature can be shown as the current temperature, so
+  HomeKit doesn't fall back to 21 °C (on by default)
 - Changes made in quick succession (e.g. Apple Home setting mode + temperature) are
   merged into one transmission
 - Remote protocols are JSON code maps; add your own without changing the code
@@ -67,3 +69,15 @@ dialog). Start from a copy of
 Air conditioners don't report their state over IR, so the entity is optimistic
 (assumed state). If someone uses the physical remote and no receiver is configured, Home
 Assistant won't know about the change.
+
+### Current temperature without a room sensor
+
+HomeKit always shows a current temperature; if the entity has none, it shows 21 °C. With
+**Show set temperature as current temperature when no room sensor reading** enabled (the
+default), the entity reports its set temperature as the current temperature whenever no
+room sensor is configured or the sensor is unavailable. This applies to the entity
+itself, so Home Assistant cards show it too. Configure a room temperature sensor to show
+the real room temperature instead.
+
+The setting only changes what is displayed. The integration never switches the unit on or
+off based on temperature; the air conditioner's own thermostat still regulates the room.

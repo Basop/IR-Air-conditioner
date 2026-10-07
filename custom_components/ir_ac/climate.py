@@ -53,6 +53,7 @@ from .const import (
     CONF_EMITTER,
     CONF_FEATURES,
     CONF_HUMIDITY_SENSOR,
+    CONF_MIRROR_TARGET,
     CONF_RECEIVER,
     CONF_TEMPERATURE_SENSOR,
     DOMAIN,
@@ -109,6 +110,7 @@ class IrAcClimate(InfraredEmitterConsumerEntity, ClimateEntity, RestoreEntity):
         self._receiver_entity_id: str | None = config.get(CONF_RECEIVER)
         self._temperature_sensor: str | None = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor: str | None = config.get(CONF_HUMIDITY_SENSOR)
+        self._mirror_target: bool = config.get(CONF_MIRROR_TARGET, True)
         enabled = set(config.get(CONF_FEATURES, [n for n, f in code_map.fields.items() if f.default_enabled]))
 
         self._attr_unique_id = entry.entry_id
@@ -356,6 +358,13 @@ class IrAcClimate(InfraredEmitterConsumerEntity, ClimateEntity, RestoreEntity):
         self.hass.bus.async_fire(EVENT_REMOTE_COMMAND, {"entity_id": self.entity_id, **decoded})
 
     # -------------------------------------------------------------- sensors
+    @property
+    def current_temperature(self) -> float | None:
+        # Without a room reading, optionally mirror the set point; HomeKit would otherwise show 21 °C.
+        if self._attr_current_temperature is None and self._mirror_target:
+            return self._attr_target_temperature
+        return self._attr_current_temperature
+
     @callback
     def _sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         self._update_sensors()
