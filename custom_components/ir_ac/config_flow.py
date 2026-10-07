@@ -17,6 +17,7 @@ from .const import (
     CONF_EMITTER,
     CONF_FEATURES,
     CONF_HUMIDITY_SENSOR,
+    CONF_MIRROR_TARGET,
     CONF_RECEIVER,
     CONF_TEMPERATURE_SENSOR,
     DOMAIN,
@@ -53,6 +54,7 @@ def _devices_schema(code_map: CodeMap, current: dict[str, Any]) -> vol.Schema:
         vol.Optional(CONF_HUMIDITY_SENSOR, description=suggested(CONF_HUMIDITY_SENSOR)): selector.EntitySelector(
             selector.EntitySelectorConfig(domain="sensor", device_class="humidity")
         ),
+        vol.Optional(CONF_MIRROR_TARGET, default=current.get(CONF_MIRROR_TARGET, True)): selector.BooleanSelector(),
     }
     if optional_fields:
         schema[vol.Optional(CONF_FEATURES, default=default_features)] = selector.SelectSelector(

@@ -13,6 +13,8 @@ CONF_RECEIVER: Final = "receiver"
 CONF_TEMPERATURE_SENSOR: Final = "temperature_sensor"
 CONF_HUMIDITY_SENSOR: Final = "humidity_sensor"
 CONF_FEATURES: Final = "features"
+# Show the set temperature as the current temperature when there is no room reading.
+CONF_MIRROR_TARGET: Final = "mirror_target_temperature"
 
 # Fired when a frame from the physical remote is decoded.
 EVENT_REMOTE_COMMAND: Final = "ir_ac_remote_command"
